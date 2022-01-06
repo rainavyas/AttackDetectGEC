@@ -9,5 +9,4 @@ Clone this repository.
 
 ## Install with PyPI
 
-`pip install happytransformer`
-`pip install torch`
+`pip install happytransformer torch`
