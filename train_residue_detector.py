@@ -35,8 +35,9 @@ def get_embeddings(model, sentences, device=torch.device('cpu')):
             encoder_outputs = encoder(input_ids)
             hidden_states = encoder_outputs[0]
             CLS_embedding = hidden_states[0,:]
+            print(CLS_embedding.size())
             embeddings.append(CLS_embedding)
-        all = torch.stack(embeddings)
+        all = torch.stack(embeddings, dim=0)
     return all
 
 
