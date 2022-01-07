@@ -13,13 +13,7 @@ import torch.nn as nn
 from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
 from happytransformer import HappyTextToText, TTSettings
-
-def get_sentences(data_path):
-    with open(data_path, 'r') as f:
-        lines = f.readlines()
-    texts = [' '.join(l.rstrip('\n').split()[1:]) for l in lines]
-    ids = [l.rstrip('\n').split()[0] for l in lines]
-    return ids, texts
+from gec_tools import get_sentences
 
 def get_embeddings(model, sentences, device=torch.device('cpu')):
     '''
@@ -124,6 +118,7 @@ if __name__ == '__main__':
     commandLineParser.add_argument('OUT', type=str, help='file to print results to')
     commandLineParser.add_argument('CLASSIFIER_OUT', type=str, help='.th to save linear adv attack classifier to')
     commandLineParser.add_argument('--attack_phrase', type=str, default='', help="universal attack phrase")
+    commandLineParser.add_argument('--num_points', type=int, default=2600, help="number of data points to use")
     commandLineParser.add_argument('--num_points_val', type=int, default=800, help="number of data points to use for validation")
     commandLineParser.add_argument('--N', type=int, default=3, help="Num word substitutions used in attack")
     commandLineParser.add_argument('--B', type=int, default=100, help="Specify batch size")
@@ -151,7 +146,7 @@ if __name__ == '__main__':
     model = HappyTextToText("T5", "vennify/t5-base-grammar-correction")
     
     # Load the data
-    _, orig_sentences = get_sentences(args.DATA)
+    _, orig_sentences = get_sentences(args.DATA, args.num_points)
     adv_sentences = [t + ' ' + args.attack_phrase for t in orig_sentences]
 
     # Get encoder CLS embeddings
