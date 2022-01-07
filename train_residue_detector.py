@@ -34,8 +34,9 @@ def get_embeddings(model, sentences, device=torch.device('cpu')):
             input_ids = model.tokenizer(sentence, return_tensors="pt").input_ids
             encoder_outputs = encoder(input_ids)
             hidden_states = encoder_outputs[0]
+            print(hidden_states.size())
             CLS_embedding = hidden_states[0,:]
-            print(CLS_embedding.size())
+            #print(CLS_embedding.size())
             embeddings.append(CLS_embedding)
         all = torch.stack(embeddings, dim=0)
     return all
