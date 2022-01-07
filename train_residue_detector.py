@@ -178,11 +178,11 @@ if __name__ == '__main__':
     dl_val = DataLoader(ds_val, batch_size=args.B)
 
     # Model
-    model = LayerClassifier(X.size(-1))
-    model.to(device)
+    detector = LayerClassifier(X.size(-1))
+    detector.to(device)
 
     # Optimizer
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    optimizer = torch.optim.Adam(detector.parameters(), lr=args.lr)
 
     # Criterion
     criterion = nn.CrossEntropyLoss().to(device)
@@ -200,10 +200,10 @@ if __name__ == '__main__':
         with open(args.OUT, 'a') as f:
             f.write(text)
         print(text)
-        train(dl_train, model, criterion, optimizer, epoch, device, args.OUT)
+        train(dl_train, detector, criterion, optimizer, epoch, device, args.OUT)
 
         # evaluate
-        eval(dl_val, model, criterion, device, args.OUT)
+        eval(dl_val, detector, criterion, device, args.OUT)
     
     # Save the trained model for identifying adversarial attacks
-    torch.save(model.state_dict(), args.CLASSIFIER_OUT)
+    torch.save(detector.state_dict(), args.CLASSIFIER_OUT)
