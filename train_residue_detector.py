@@ -21,12 +21,12 @@ def get_sentences(data_path):
     ids = [l.rstrip('\n').split()[0] for l in lines]
     return ids, texts
 
-def get_embeddings(model, sentences):
+def get_embeddings(model, sentences, device=torch.device('cpu')):
     '''
     Map input sentences to encoder embbedding space
     Use CLS token encoder embedding
     '''
-    encoder = model.model.get_encoder()
+    encoder = model.model.get_encoder().to(device)
     encoder.eval()
     embeddings = []
     with torch.no_grad():
