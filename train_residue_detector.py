@@ -26,7 +26,7 @@ def get_embeddings(model, sentences):
     Map input sentences to encoder embbedding space
     Use CLS token encoder embedding
     '''
-    encoder = model.get_encoder()
+    encoder = model.model.get_encoder()
     encoder.eval()
     embeddings = []
     with torch.no_grad():
