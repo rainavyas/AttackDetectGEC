@@ -48,7 +48,7 @@ if __name__ == '__main__':
     
     # Load the data
     _, orig_sentences = get_sentences(args.DATA)
-    adv_sentences = [t + ' ' + args.attack_phrase for t in orig_sentences]
+    adv_sentences = [t + ' ' + args.attack_phrase + '.' for t in orig_sentences]
 
     # Get encoder CLS embeddings
     orig_emb = get_embeddings(model, orig_sentences)
