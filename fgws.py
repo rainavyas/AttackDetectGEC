@@ -105,9 +105,9 @@ class FGWS():
                 X_dash_words.append(word)
         X_dash = re.sub(r' ([^A-Za-z0-9])', r'\1', ' '.join(X_dash_words)) # Want no space before punctuation
 
-        if self.mode == 'prob':
+        if self.fgws_mode == 'prob':
             return self._fgws_prob(X, X_dash)
-        elif self.mode == 'edits':
+        elif self.fgws_mode == 'edits':
             return self._fgws_edits(X, X_dash)
         else:
             print('Error in FGWS mode')
