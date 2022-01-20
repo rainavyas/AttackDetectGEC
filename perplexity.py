@@ -56,6 +56,7 @@ if __name__ == '__main__':
     attack_scores = []
     for i, (o,a) in enumerate(zip(orig_sentences, adv_sentences)):
         print(f'On {i}/{len(orig_sentences)}')
+        if len(o) == 0: next
         original_scores.append(perplexity(o, tokenizer, model))
         attack_scores.append(perplexity(a, tokenizer, model))
 
