@@ -108,7 +108,9 @@ class FGWS():
         if self.mode == 'prob':
             return self._fgws_prob(X, X_dash)
         elif self.mode == 'edits':
-            return self._fgws_prob(X, X_dash)
+            return self._fgws_edits(X, X_dash)
+        else:
+            print('Error in FGWS mode')
     
     def _fgws_edits(self, X, X_dash):
         '''
