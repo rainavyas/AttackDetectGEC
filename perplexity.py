@@ -28,6 +28,7 @@ def perplexity(sentence:str, tokenizer, model, stride:int=512) -> float:
         
         lls.append(log_likelihood)
     ppl = torch.exp(torch.stack(lls).sum() / end_loc)
+    print(ppl)
     return ppl.item()
 
 if __name__ == '__main__':
