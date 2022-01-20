@@ -34,6 +34,7 @@ if __name__ == '__main__':
     # Get command line arguments
     commandLineParser = argparse.ArgumentParser()
     commandLineParser.add_argument('DATA', type=str, help='Path to original data file')
+    commandLineParser.add_argument('--attack_phrase', type=str, default='', help="universal attack phrase")
     args = commandLineParser.parse_args()
 
     # Save the command run
