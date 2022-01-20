@@ -118,7 +118,9 @@ class FGWS():
         '''
         f_X = self._sent_to_edits(X)
         f_X_dash = self._sent_to_edits(X_dash)
-        return abs(f_X-f_X_dash)/len(re.findall(r"[\w']+|[.,!?;]", X))
+        length = len(re.findall(r"[\w']+|[.,!?;]", X))
+        if length == 0: length = 1
+        return abs(f_X-f_X_dash)/length
     
     def _sent_to_edits(self, sent):
         '''
