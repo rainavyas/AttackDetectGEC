@@ -24,8 +24,6 @@ from sklearn.metrics import precision_recall_curve
 import string
 import re
 
-
-
 class FGWS():
     '''
     FGWS detector
@@ -55,6 +53,7 @@ class FGWS():
         '''
         Evaluate FGWS detector
         '''
+        nltk.download('omw-1.4')
         self.adv_sentences = [t + ' ' + self.attack_phrase + '.' for t in self.orig_sentences]
 
         with open(self.freq_dict_path) as f:
