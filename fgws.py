@@ -57,7 +57,7 @@ class FGWS():
         '''
         self.adv_sentences = [t + ' ' + self.attack_phrase + '.' for t in self.orig_sentences]
 
-        with open(args.FREQ) as f:
+        with open(self.freq_dict_path) as f:
             freq_dict = json.load(f)
         self.freq_dict = defaultdict(int, freq_dict)
 
