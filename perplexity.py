@@ -64,6 +64,8 @@ if __name__ == '__main__':
         except:
             print("Failed for ", o)
 
+    original_scores = [5000 if type(s)!=int else s for s in original_scores]
+    attack_scores = [5000 if type(s)!=int else s for s in attack_scores]
     print(mean(original_scores))
     print(mean(attack_scores))
     # Calculate Best F score
