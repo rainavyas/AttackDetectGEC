@@ -71,7 +71,7 @@ if __name__ == '__main__':
     # Calculate Best F score
     labels = [0]*len(original_scores) + [1]*len(attack_scores)
     scores = original_scores + attack_scores
-    scores = [10000 if s>10000 else s for s in scores]
+    scores = [10000 if (s>10000 or type(s)!=float) else s for s in scores]
     precision, recall, _ = precision_recall_curve(labels, scores)
     best_precision, best_recall, best_f05 =  get_best_f_score(precision, recall, beta=0.5)
     print(f'Precision: {best_precision}\tRecall: {best_recall}\tF0.5: {best_f05}')
