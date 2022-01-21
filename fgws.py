@@ -63,7 +63,7 @@ class FGWS():
         # Get FGWS scores
         original_scores = []
         attack_scores = []
-        for i, (o,a) in enumerate(zip(self.orig_sentences[:10], self.adv_sentences[:10])):
+        for i, (o,a) in enumerate(zip(self.orig_sentences, self.adv_sentences)):
             print(f'On {i}/{len(self.orig_sentences)}')
             original_scores.append(self.get_score(o))
             attack_scores.append(self.get_score(a))
