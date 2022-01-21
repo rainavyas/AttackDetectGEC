@@ -17,6 +17,7 @@ from happytransformer import HappyTextToText
 
 def get_best_f_score(precisions, recalls, beta=1.0):
     f_scores = (1+beta**2)*((precisions*recalls)/((precisions*(beta**2))+recalls))
+    f_scores = f_scores[~np.isnan(f_scores)]
     ind = np.argmax(f_scores)
     return precisions[ind], recalls[ind], f_scores[ind]
 
