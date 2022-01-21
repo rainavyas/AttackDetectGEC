@@ -63,10 +63,10 @@ if __name__ == '__main__':
         except:
             print("Failed for ", o)
 
-    print(original_scores)
+    print(original_scores[:200])
     print()
     print()
-    print(attack_scores)
+    print(attack_scores[:200])
     # Calculate Best F score
     labels = [0]*len(original_scores) + [1]*len(attack_scores)
     scores = original_scores + attack_scores
