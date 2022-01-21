@@ -28,7 +28,7 @@ def perplexity(sentence:str, tokenizer, model, stride:int=512) -> float:
         
         lls.append(log_likelihood)
     ppl = torch.exp(torch.stack(lls).sum() / end_loc)
-    print(ppl)
+    # print(ppl)
     return ppl.item()
 
 if __name__ == '__main__':
@@ -66,6 +66,7 @@ if __name__ == '__main__':
     # Calculate Best F score
     labels = [0]*len(original_scores) + [1]*len(attack_scores)
     scores = original_scores + attack_scores
+    scores = [5000 if type(s)!=int else s for s in scores]
     precision, recall, _ = precision_recall_curve(labels, scores)
     best_precision, best_recall, best_f05 =  get_best_f_score(precision, recall, beta=0.5)
     print(f'Precision: {best_precision}\tRecall: {best_recall}\tF0.5: {best_f05}')
