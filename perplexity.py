@@ -6,6 +6,7 @@ import argparse
 from gec_tools import get_sentences
 from pr_residue_detector import get_best_f_score
 from sklearn.metrics import precision_recall_curve
+from statistics import mean
 
 
 
@@ -63,10 +64,8 @@ if __name__ == '__main__':
         except:
             print("Failed for ", o)
 
-    print(original_scores[:200])
-    print()
-    print()
-    print(attack_scores[:200])
+    print(mean(original_scores))
+    print(mean(attack_scores))
     # Calculate Best F score
     labels = [0]*len(original_scores) + [1]*len(attack_scores)
     scores = original_scores + attack_scores
