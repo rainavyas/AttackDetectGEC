@@ -4,7 +4,7 @@ Generate precision-recall curve for residue detector
 
 import numpy as np
 from sklearn.metrics import precision_recall_curve
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from train_residue_detector import LayerClassifier, get_embeddings
 import torch
 import torch.nn as nn
@@ -28,6 +28,7 @@ if __name__ == '__main__':
     commandLineParser.add_argument('DATA', type=str, help='Path to original data file')
     commandLineParser.add_argument('DETECTOR', type=str, help='trained adv attack detector')
     commandLineParser.add_argument('OUT_FILE', type=str, help='.png file to save plot to')
+    commandLineParser.add_argument('PR', type=str, help='.npz file to save precision recall values')
     commandLineParser.add_argument('--attack_phrase', type=str, default='', help="universal attack phrase")
     commandLineParser.add_argument('--cpu', type=str, default='no', help="force cpu use")
     args = commandLineParser.parse_args()
@@ -76,10 +77,13 @@ if __name__ == '__main__':
     best_precision, best_recall, best_f05 =  get_best_f_score(precision, recall, beta=0.5)
     print(f'Precision: {best_precision}\tRecall: {best_recall}\tF0.5: {best_f05}')
 
-    # plot all the data
-    plt.plot(recall, precision, 'r-')
-    plt.plot(best_recall,best_precision,'bo')
-    plt.annotate(F"F0.5={best_f05:.2f}", (best_recall,best_precision))
-    plt.xlabel('Recall')
-    plt.ylabel('Precision')
-    plt.savefig(args.OUT_FILE)
+    # Save the pr data
+    np.savez(args.PR, precision, recall)
+
+    # # plot all the data
+    # plt.plot(recall, precision, 'r-')
+    # plt.plot(best_recall,best_precision,'bo')
+    # plt.annotate(F"F0.5={best_f05:.2f}", (best_recall,best_precision))
+    # plt.xlabel('Recall')
+    # plt.ylabel('Precision')
+    # plt.savefig(args.OUT_FILE)

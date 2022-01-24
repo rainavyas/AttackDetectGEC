@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 from transformers import GPT2LMHeadModel, GPT2TokenizerFast
 import sys
 import os
@@ -36,6 +37,7 @@ if __name__ == '__main__':
     # Get command line arguments
     commandLineParser = argparse.ArgumentParser()
     commandLineParser.add_argument('DATA', type=str, help='Path to original data file')
+    commandLineParser.add_argument('PR', type=str, help='.npz file to save precision recall values')
     commandLineParser.add_argument('--attack_phrase', type=str, default='', help="universal attack phrase")
     args = commandLineParser.parse_args()
 
@@ -76,3 +78,6 @@ if __name__ == '__main__':
     precision, recall, _ = precision_recall_curve(labels, scores)
     best_precision, best_recall, best_f05 =  get_best_f_score(precision, recall, beta=0.5)
     print(f'Precision: {best_precision}\tRecall: {best_recall}\tF0.5: {best_f05}')
+
+    # Save the pr data
+    np.savez(args.PR, precision, recall)
