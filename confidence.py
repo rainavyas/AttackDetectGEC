@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 from sklearn.metrics import precision_recall_curve
 import math
+import copy
 
 def negative_confidence(sentence, model, tokenizer, HappyModel, gen_args):
     '''
@@ -51,7 +52,7 @@ if __name__ == '__main__':
     HappyModel = HappyTextToText("T5", "vennify/t5-base-grammar-correction")
     gen_args = TTSettings(num_beams=5, min_length=1)
 
-    model = HappyModel.model.to(torch.device('cpu'))
+    model = copy.deepcopy(HappyModel.model).to(torch.device('cpu'))
     tokenizer = HappyModel.tokenizer
 
     # Load the data
