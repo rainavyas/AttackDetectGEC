@@ -14,14 +14,14 @@ def negative_confidence(sentence, HappyModel, gen_args, device=torch.device('cpu
     Calculate negative confidence of sentence using model
     '''
     sf = nn.Softmax(dim=0)
-    HappyModel.model.to(device)
+    # HappyModel.model.to(device)
     model = HappyModel.model
     tokenizer = HappyModel.tokenizer
     output_sentence = correct(HappyModel, sentence, gen_args)
 
     input_ids = tokenizer(sentence, return_tensors="pt").input_ids
     all_decoder_input_ids = tokenizer(output_sentence, return_tensors="pt").input_ids
-    all_decoder_input_ids[0, 0] = model.config.decoder_start_token_id
+    # all_decoder_input_ids[0, 0] = model.config.decoder_start_token_id
     assert all_decoder_input_ids[0, 0].item() == model.config.decoder_start_token_id
 
     total = 0
