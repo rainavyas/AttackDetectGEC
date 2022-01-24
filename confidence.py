@@ -60,11 +60,12 @@ if __name__ == '__main__':
     attack_scores = []
     for i, (o,a) in enumerate(zip(orig_sentences, adv_sentences)):
         print(f'On {i}/{len(orig_sentences)}')
-        try:
-            original_scores.append(negative_confidence(o, HappyModel, gen_args))
-            attack_scores.append(negative_confidence(a, HappyModel, gen_args))
-        except:
-            print("Failed for ", o)
+        # try:
+        #     original_scores.append(negative_confidence(o, HappyModel, gen_args))
+        #     attack_scores.append(negative_confidence(a, HappyModel, gen_args))
+        # except:
+        #     print("Failed for ", o)
+        original_scores.append(negative_confidence(o, HappyModel, gen_args))
 
     labels = [0]*len(original_scores) + [1]*len(attack_scores)
     scores = original_scores + attack_scores
