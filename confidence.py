@@ -30,8 +30,7 @@ def negative_confidence(sentence, model, tokenizer, HappyModel, gen_args):
         probs = sf(lm_logits)
         pred_id = all_decoder_input_ids[:,i].squeeze().item()
         prob = probs[pred_id]
-        total += math.log(prob)
-    print(total)    
+        total += math.log(prob)    
     return ((-1)/all_decoder_input_ids.size(1)) * total
 
 
