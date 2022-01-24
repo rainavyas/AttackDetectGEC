@@ -9,15 +9,12 @@ import torch.nn as nn
 from sklearn.metrics import precision_recall_curve
 import math
 
-def negative_confidence(sentence, HappyModel, gen_args, device=torch.device('cpu')):
+def negative_confidence(sentence, model, tokenizer, HappyModel, gen_args):
     '''
     Calculate negative confidence of sentence using model
     '''
     sf = nn.Softmax(dim=0)
-    model = HappyModel.model
-    tokenizer = HappyModel.tokenizer
     output_sentence = correct(HappyModel, sentence, gen_args)
-    model.to(device)
 
     input_ids = tokenizer(sentence, return_tensors="pt").input_ids
     all_decoder_input_ids = tokenizer(output_sentence, return_tensors="pt").input_ids
@@ -54,6 +51,9 @@ if __name__ == '__main__':
     HappyModel = HappyTextToText("T5", "vennify/t5-base-grammar-correction")
     gen_args = TTSettings(num_beams=5, min_length=1)
 
+    model = HappyModel.model.to(torch.device('cpu'))
+    tokenizer = HappyModel.tokenizer
+
     # Load the data
     _, orig_sentences = get_sentences(args.DATA)
     adv_sentences = [t + ' ' + args.attack_phrase + '.' for t in orig_sentences]
@@ -64,11 +64,11 @@ if __name__ == '__main__':
     for i, (o,a) in enumerate(zip(orig_sentences, adv_sentences)):
         print(f'On {i}/{len(orig_sentences)}')
         # try:
-        #     original_scores.append(negative_confidence(o, HappyModel, gen_args))
-        #     attack_scores.append(negative_confidence(a, HappyModel, gen_args))
+        #     original_scores.append(negative_confidence(o, model, tokenizer, HappyModel, gen_args))
+        #     attack_scores.append(negative_confidence(a, model, tokenizer, HappyModel, gen_args))
         # except:
         #     print("Failed for ", o)
-        original_scores.append(negative_confidence(o, HappyModel, gen_args))
+        original_scores.append(negative_confidence(o, model, tokenizer, HappyModel, gen_args))
 
     labels = [0]*len(original_scores) + [1]*len(attack_scores)
     scores = original_scores + attack_scores
