@@ -63,11 +63,11 @@ class FGWS():
         # Get FGWS scores
         original_scores = []
         attack_scores = []
-        for i, (o,a) in enumerate(zip(self.orig_sentences, self.adv_sentences)):
+        for i, (o,a) in enumerate(zip(self.orig_sentences[:8], self.adv_sentences[:8])):
             print(f'On {i}/{len(self.orig_sentences)}')
             original_scores.append(self.get_score(o))
             attack_scores.append(self.get_score(a))
-            # print(original_scores, attack_scores)
+            print(original_scores, attack_scores)
 
         # Calculate Best F1 score
         labels = [0]*len(original_scores) + [1]*len(attack_scores)
