@@ -44,7 +44,7 @@ if __name__ == '__main__':
     # Save the command run
     if not os.path.isdir('CMDs'):
         os.mkdir('CMDs')
-    with open('CMDs/perplexity.cmd', 'a') as f:
+    with open('CMDs/confidence.cmd', 'a') as f:
         f.write(' '.join(sys.argv)+'\n')
     
     # You can change to gpt-large or other pretrained models that you can find in Huggingface.
