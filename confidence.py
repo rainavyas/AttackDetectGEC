@@ -22,7 +22,7 @@ def negative_confidence(sentence, HappyModel, gen_args, device=torch.device('cpu
 
     input_ids = tokenizer(sentence, return_tensors="pt").input_ids
     all_decoder_input_ids = tokenizer(output_sentence, return_tensors="pt").input_ids
-    # all_decoder_input_ids[0, 0] = model.config.decoder_start_token_id
+    all_decoder_input_ids[0, 0] = model.config.decoder_start_token_id
     assert all_decoder_input_ids[0, 0].item() == model.config.decoder_start_token_id
 
     total = 0
