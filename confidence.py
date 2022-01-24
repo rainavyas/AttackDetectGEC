@@ -27,11 +27,11 @@ def negative_confidence(sentence, model, tokenizer, HappyModel, gen_args):
         decoder_input_ids = all_decoder_input_ids[:,:i]
         outputs = model(input_ids, decoder_input_ids=decoder_input_ids, return_dict=True)
         lm_logits = outputs.logits[:,-1,:].squeeze()
-        print(lm_logits.size())
         probs = sf(lm_logits)
         pred_id = all_decoder_input_ids[:,i].squeeze().item()
         prob = probs[pred_id]
         total += math.log(prob)
+    print(total)    
     return ((-1)/all_decoder_input_ids.size(1)) * total
 
 
@@ -64,12 +64,11 @@ if __name__ == '__main__':
     attack_scores = []
     for i, (o,a) in enumerate(zip(orig_sentences, adv_sentences)):
         print(f'On {i}/{len(orig_sentences)}')
-        # try:
-        #     original_scores.append(negative_confidence(o, model, tokenizer, HappyModel, gen_args))
-        #     attack_scores.append(negative_confidence(a, model, tokenizer, HappyModel, gen_args))
-        # except:
-        #     print("Failed for ", o)
-        original_scores.append(negative_confidence(o, model, tokenizer, HappyModel, gen_args))
+        try:
+            original_scores.append(negative_confidence(o, model, tokenizer, HappyModel, gen_args))
+            attack_scores.append(negative_confidence(a, model, tokenizer, HappyModel, gen_args))
+        except:
+            print("Failed for ", o)
 
     labels = [0]*len(original_scores) + [1]*len(attack_scores)
     scores = original_scores + attack_scores
