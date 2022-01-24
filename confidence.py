@@ -28,7 +28,7 @@ def negative_confidence(sentence, HappyModel, gen_args, device=torch.device('cpu
     for i in range(1, all_decoder_input_ids.size(1)):
         decoder_input_ids = all_decoder_input_ids[:,:i]
         outputs = model(input_ids, decoder_input_ids=decoder_input_ids, return_dict=True)
-        lm_logits = outputs.logits
+        lm_logits = outputs.logits[:,-1,:].squeeze()
         print(lm_logits.size())
         probs = sf(lm_logits)
         pred_id = all_decoder_input_ids[:,i].squeeze().item()
