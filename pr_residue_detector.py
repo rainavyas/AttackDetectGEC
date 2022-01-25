@@ -4,7 +4,6 @@ Generate precision-recall curve for residue detector
 
 import numpy as np
 from sklearn.metrics import precision_recall_curve
-# import matplotlib.pyplot as plt
 from train_residue_detector import LayerClassifier, get_embeddings
 import torch
 import torch.nn as nn
@@ -79,11 +78,3 @@ if __name__ == '__main__':
 
     # Save the pr data
     np.savez(args.PR, precision, recall)
-
-    # # plot all the data
-    # plt.plot(recall, precision, 'r-')
-    # plt.plot(best_recall,best_precision,'bo')
-    # plt.annotate(F"F0.5={best_f05:.2f}", (best_recall,best_precision))
-    # plt.xlabel('Recall')
-    # plt.ylabel('Precision')
-    # plt.savefig(args.OUT_FILE)
