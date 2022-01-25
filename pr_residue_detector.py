@@ -26,7 +26,6 @@ if __name__ == '__main__':
     commandLineParser = argparse.ArgumentParser()
     commandLineParser.add_argument('DATA', type=str, help='Path to original data file')
     commandLineParser.add_argument('DETECTOR', type=str, help='trained adv attack detector')
-    commandLineParser.add_argument('OUT_FILE', type=str, help='.png file to save plot to')
     commandLineParser.add_argument('PR', type=str, help='.npz file to save precision recall values')
     commandLineParser.add_argument('--attack_phrase', type=str, default='', help="universal attack phrase")
     commandLineParser.add_argument('--cpu', type=str, default='no', help="force cpu use")
