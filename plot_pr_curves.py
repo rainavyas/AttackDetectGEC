@@ -27,8 +27,8 @@ if __name__ == '__main__':
         file_object = np.load(f)
         precision = file_object['arr_0']
         recall = file_object['arr_1']
-        plt.plot(precision, recall, label=name)
-    plt.xlabel('Precision')
-    plt.ylabel('Recall')
+        plt.plot(recall, precision, label=name)
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
     plt.legend()
     plt.savefig(args.OUT, bbox_inches='tight')
