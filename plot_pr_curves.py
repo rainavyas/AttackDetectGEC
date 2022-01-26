@@ -35,5 +35,6 @@ if __name__ == '__main__':
     plt.xlabel('Recall')
     plt.ylabel('Precision')
     plt.ylim(0.5,1.01)
+    plt.xlim(0.0,1.01)
     plt.legend()
     plt.savefig(args.OUT, bbox_inches='tight')
