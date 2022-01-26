@@ -31,7 +31,7 @@ if __name__ == '__main__':
         recall = file_object['arr_1']
         plt.plot(recall, precision, label=name)
         best_precision, best_recall, best_f05 =  get_best_f_score(precision, recall, beta=0.5)
-        plt.plot(best_recall, best_precision, marker='x', color='k', ms=10)
+        plt.plot(best_recall, best_precision, marker='x', color='k', ms=6)
     plt.xlabel('Recall')
     plt.ylabel('Precision')
     plt.ylim(0.5,1.01)
