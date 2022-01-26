@@ -1,8 +1,10 @@
 import sys
 import os
 import argparse
+from turtle import color
 import matplotlib.pyplot as plt
 import numpy as np
+from pr_residue_detector import get_best_f_score
 
 if __name__ == '__main__':
     # Get command line arguments
@@ -28,7 +30,10 @@ if __name__ == '__main__':
         precision = file_object['arr_0']
         recall = file_object['arr_1']
         plt.plot(recall, precision, label=name)
+        best_precision, best_recall, best_f05 =  get_best_f_score(precision, recall, beta=0.5)
+        plt.plot(best_recall, best_precision, marker='x', color='k')
     plt.xlabel('Recall')
     plt.ylabel('Precision')
+    plt.ylim(0.5,1.0)
     plt.legend()
     plt.savefig(args.OUT, bbox_inches='tight')
